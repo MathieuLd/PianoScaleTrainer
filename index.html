@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
+    <script src="sketch.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+
+    <div id="setupState">
+      <div>
+        <label for="scaleSel">Select a scale </label>
+        <select id="scaleSel" name="scaleSel">
+          <option value="major">Major</option>
+          <option value="natMinor">Natural Minor</option>
+          <option value="harMinor">Harmonic Minor</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+      <div>
+        <label for="rootToggle">Ask for root ?</label>
+        <input type="checkbox" name="rootToggle">
+      </div>
+      <div>
+        <label for="relativeToggle">Ask for relative mode 1 ?</label>
+        <input type="checkbox" name="relativeToggle">
+      </div>
+      <div>
+        <button type="button" name="startTest" onclick="startTest()">Start test</button>
+      </div>
+    </div>
+
+    <div id="testState">
+      <div>
+        <label for="rootSel">Root ?</label>
+        <select name="rootSel">
+          <option value="1">C</option>
+          <option value="2">C#</option>
+          <option value="3">D</option>
+          <option value="4">D#</option>
+          <option value="5">E</option>
+          <option value="6">F</option>
+          <option value="7">F#</option>
+          <option value="8">G</option>
+          <option value="9">G#</option>
+          <option value="10">A</option>
+          <option value="11">A#</option>
+          <option value="12">B</option>
+        </select>
+      </div>
+      <div>
+        <label for="modeSel">Mode ?</label>
+        <select name="modeSel">
+          <option value="1">######</option>
+        </select>
+      </div>
+      <div>
+        <label for="relativeSel">Relative ####### ?</label>
+        <select name="relativeSel">
+          <option value="1">C</option>
+          <option value="2">C#</option>
+          <option value="3">D</option>
+          <option value="4">D#</option>
+          <option value="5">E</option>
+          <option value="6">F</option>
+          <option value="7">F#</option>
+          <option value="8">G</option>
+          <option value="9">G#</option>
+          <option value="10">A</option>
+          <option value="11">A#</option>
+          <option value="12">B</option>
+        </select>
+      </div>
+      <div>
+        <label id="answer">#####</label>
+      </div>
+      <div>
+        <button type="button" name="next" onclick="newTest()">Next</button>
+      </div>
+      <div>
+        <button type="button" name="endTest" onclick="startSetup()">End test</button>
+      </div>
+    </div>
+
+  </body>
+</html>

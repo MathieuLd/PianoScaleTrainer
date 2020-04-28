@@ -8,6 +8,11 @@ var whiteKeyNumber = [0,2,4,5,7,9,11,12,14,16,17,19,21,23];
 var blackKeyNumber = [1,3,6,8,10,13,15,18,20,22];
 var blackKeyPattern = [0,1,3,4,5,7,8,10,11,12];
 var whiteKeyShape = [1,2,3,1,2,2,3,1,2,3,1,2,2,3];
+var x;
+var y;
+var keyHover;
+var blackKeyHover;
+var whiteKeyHover;
 var colorPreset1;
 var colorPreset2;
 var colorPreset3;
@@ -25,10 +30,51 @@ function setup() {
 }
 
 function draw() {
+  if(currentState == 0){
+    updateScale();
+    drawHiLight();
+  }
+}
 
+function  drawHiLight() {
+  keyHover = getKeyHover();
+  if(keyHover == -1){
+    drawKey(keyHover, "red");
+  }
 }
 
 function mouseClicked() {
+  keyHover = getKeyHover();
+  if(keyHover != -1){
+    scaleSel.value  = "custom";
+    if (currentScale.indexOf(keyHover) != -1){
+      currentScale = currentScale.splice(currentScale.indexOf(keyHover),1)
+    }else{
+      currentScale.push(keyHover);
+      currentScale.sort();
+    }
+  }
+}
+
+function getKeyHover() {
+  x = mouseX;
+  y = mouseY;
+  blackKeyHover = blackKeyHoverFinder(x,y);
+  whiteKeyHover = whiteKeyHoverFinder(x,y);
+  if (blackKeyHover != -1){
+    return(blackKeyNumber[blackKeyHover]);
+  }else if (whiteKeyHover != -1) {
+    return(whiteKeyNumber[whiteKeyHover]);
+  }else {
+    return (-1);
+  }
+}
+
+function blackKeyHoverFinder(x,y) {
+
+}
+
+function whiteKeyHoverFinder(x,y) {
 
 }
 
@@ -45,7 +91,6 @@ function drawKeyboard() {
 }
 
 function colorScale(scale){
-  console.log("looolk");
   for(var i = 0; i < scale.length; i++){
     if (i == 0){
       drawKey(scale[i], colorPreset1);

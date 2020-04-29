@@ -21,11 +21,11 @@
       </div>
       <div>
         <label for="rootToggle">Ask for root ?</label>
-        <input type="checkbox" name="rootToggle">
+        <input id="rootToggle" type="checkbox" name="rootToggle">
       </div>
       <div>
         <label for="relativeToggle">Ask for relative mode 1 ?</label>
-        <input type="checkbox" name="relativeToggle">
+        <input id=relativeToggle type="checkbox" name="relativeToggle">
       </div>
       <div>
         <button type="button" name="startTest" onclick="startTest()">Start test</button>
@@ -33,7 +33,7 @@
     </div>
 
     <div id="testState">
-      <div>
+      <div id="rootDiv">
         <label for="rootSel">Root ?</label>
         <select id="rootSel" name="rootSel">
           <option value="-1">-</option>
@@ -57,7 +57,7 @@
           <option value="1">######</option>
         </select>
       </div>
-      <div>
+      <div id="relativeDiv">
         <label for="relativeSel">Relative ####### ?</label>
         <select id="relativeSel" name="relativeSel">
           <option value="-1">-</option>
@@ -79,7 +79,7 @@
         <label id="answer">#####</label>
       </div>
       <div>
-        <button type="button" name="next" onclick="newTest()">Next</button>
+        <button id="next" type="button" name="next" onclick="newTest()">Next</button>
       </div>
       <div>
         <button type="button" name="endTest" onclick="startSetup()">End test</button>

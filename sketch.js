@@ -31,7 +31,7 @@ function setup() {
 
 function draw() {
   if(currentState == 0){
-    updateScale();
+    //updateScale();
     drawHiLight();
   }
 }
@@ -45,15 +45,15 @@ function  drawHiLight() {
 
 function mouseClicked() {
   keyHover = getKeyHover();
-  if(keyHover != -1){
+  /*if(keyHover != -1){
     scaleSel.value  = "custom";
-    if (currentScale.indexOf(keyHover) != -1){
+    if (currentKScale.indexOf(keyHover) != -1){
       currentScale = currentScale.splice(currentScale.indexOf(keyHover),1)
     }else{
       currentScale.push(keyHover);
       currentScale.sort();
     }
-  }
+  }*/
 }
 
 function getKeyHover() {

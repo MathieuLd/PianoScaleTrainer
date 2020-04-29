@@ -16,7 +16,7 @@ var showRoot;
 var showRelative;
 var rootDiv;
 var relativeDiv;
-var tst;
+var relativeLab;
 
 window.addEventListener("load", function(){
     loadFunction();
@@ -35,9 +35,10 @@ function loadFunction(){
   relativeCheck = document.getElementById("relativeToggle");
   rootDiv = document.getElementById("rootDiv");
   relativeDiv = document.getElementById("relativeDiv");
+  relativeLab = document.getElementById("relativeLab");
   rootCheck.checked = true;
   relativeCheck.checked = true;
-  tst = 10;
+  scaleSel.selectedIndex = 0;
   scaleSel.onchange = function() {
     updateScale();
   }
@@ -101,7 +102,6 @@ function checkRelative(answer){
   }else{
     return false;
   }
-
 }
 
 function updateScale(){
@@ -118,10 +118,7 @@ function updateScale(){
   }
   customScale = currentScale;
   colorScale(currentScale);
-  console.log(currentScale);
   currentIntervals = calculateIntervals(currentScale.slice());
-  console.log(currentScale);
-  console.log(currentIntervals);
 }
 
 function calculateIntervals(scale){
@@ -145,17 +142,25 @@ function startSetup(){
 
 
 function startTest(){
-  console.log(tst);
   currentState = 1;
   setupDom.style.display = "none";
   testDom.style.display = "block";
-  if(rootCheck.checked){rootDiv.style.display = "block";}
-  else{rootDiv.style.display = "none";}
-  if(relativeCheck.checked){relativeDiv.style.display = "block";}
-  else{relativeDiv.style.display = "none";}
-  console.log(currentScale);
+  if(rootCheck.checked){
+    rootDiv.style.display = "block";
+  }else{
+    rootDiv.style.display = "none";
+  }
+  if(relativeCheck.checked){
+    relativeDiv.style.display = "block";
+    if (scaleName != "custom"){
+      relativeLab.innerHTML = "Relative " + scaleSel.options[scaleSel.selectedIndex].innerHTML.toLowerCase() + " ?";
+    }else{
+      relativeLab.innerHTML = "Relative mode 0 ?";
+    }
+  }else{
+    relativeDiv.style.display = "none";
+  }
   updateModeSel();
-  console.log(currentScale);
   newTest();
 }
 
@@ -177,8 +182,6 @@ function newTest(){
 
   currentRoot = Math.floor(Math.random() * 11);
   currentMode = Math.floor(Math.random() * (currentIntervals.length-1));
-  console.log(currentMode);
-  console.log(currentIntervals);
   currentKeyScale = calculateScale(currentRoot, currentIntervals.slice(), currentMode); //slice used to send a copy of the array not the array itself
   currentIntervals = calculateIntervals(currentScale.slice());
   rootSel.value = -1;
@@ -187,7 +190,6 @@ function newTest(){
   answerLab.innerHTML = "";
   nextBout.disabled = true;
   drawKeyboard();
-  console.log(currentScale);
   colorScale(currentKeyScale);
 }
 

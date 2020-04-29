@@ -31,7 +31,7 @@ function setup() {
 
 function draw() {
   if(currentState == 0){
-    //updateScale();
+    updateScale();
     drawHiLight();
   }
 }

@@ -105,7 +105,6 @@ function checkRelative(answer){
 }
 
 function updateScale(){
-  drawKeyboard();
   scaleName = scaleSel.options[scaleSel.selectedIndex].value;
   if (scaleName == "major"){
     currentScale = [0,2,4,5,7,9,11];
@@ -117,9 +116,12 @@ function updateScale(){
     currentScale = customScale;
   }
   customScale = currentScale;
+  drawKeyboard();
   colorScale(currentScale);
   currentIntervals = calculateIntervals(currentScale.slice());
 }
+
+
 
 function calculateIntervals(scale){
   var intervals = [];

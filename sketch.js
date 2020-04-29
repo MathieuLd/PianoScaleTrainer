@@ -31,29 +31,37 @@ function setup() {
 
 function draw() {
   if(currentState == 0){
-    updateScale();
+    drawKeyboard();
+    colorScale(currentScale);
     drawHiLight();
   }
 }
 
+
+
+
 function  drawHiLight() {
   keyHover = getKeyHover();
-  if(keyHover == -1){
-    drawKey(keyHover, "red");
+    console.log("hov = " +keyHover);
+  if(keyHover != -1){
+    drawKey(keyHover, 50);
   }
 }
 
 function mouseClicked() {
-  keyHover = getKeyHover();
-  /*if(keyHover != -1){
-    scaleSel.value  = "custom";
-    if (currentKScale.indexOf(keyHover) != -1){
-      currentScale = currentScale.splice(currentScale.indexOf(keyHover),1)
-    }else{
-      currentScale.push(keyHover);
-      currentScale.sort();
+  if(currentState == 0){
+    keyHover = getKeyHover();
+    if(keyHover != -1){
+      scaleSel.value  = "custom";
+      if (currentScale.indexOf(keyHover) != -1){
+        customScale.splice(customScale.indexOf(keyHover),1)
+      }else{
+        customScale.push(keyHover);
+        customScale.sort();
+      }
+      updateScale();
     }
-  }*/
+  }
 }
 
 function getKeyHover() {
@@ -71,17 +79,22 @@ function getKeyHover() {
 }
 
 function blackKeyHoverFinder(x,y) {
-
+  for (var i = 0; i < blackKeyPattern.length; i++){
+    var iPos = blackKeyPattern[i]+1;
+    if(x > scaleOffsetX+iPos*whiteKeyWidth-blackKeyWidth/2 && x < scaleOffsetX+iPos*whiteKeyWidth+blackKeyWidth/2 && y > scaleOffsetY && y < scaleOffsetY+blackKeyHeight){
+      return i;
+    }
+  }
+  return -1;
 }
 
 function whiteKeyHoverFinder(x,y) {
-
+  if (x > scaleOffsetX && x < scaleOffsetX+whiteKeyWidth*whiteKeyNumber.length && y > scaleOffsetY && y < scaleOffsetY+whiteKeyHeight){
+    return Math.floor((x-scaleOffsetX)/whiteKeyWidth);
+  }else{
+    return -1;
+  }
 }
-
-function dro(){
-  drawKey(5,"red")
-}
-
 
 function drawKeyboard() {
   fill(255);

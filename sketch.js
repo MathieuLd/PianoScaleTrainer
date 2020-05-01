@@ -41,7 +41,7 @@ function draw() {
 
 
 function  drawHiLight() {
-  keyHover = getKeyHover();
+  keyHover = getKeyHover(12);
     console.log("hov = " +keyHover);
   if(keyHover != -1){
     drawKey(keyHover, 50);
@@ -50,7 +50,7 @@ function  drawHiLight() {
 
 function mouseClicked() {
   if(currentState == 0){
-    keyHover = getKeyHover();
+    keyHover = getKeyHover(12);
     if(keyHover != -1){
       scaleSel.value  = "custom";
       if (currentScale.indexOf(keyHover) != -1){
@@ -64,17 +64,21 @@ function mouseClicked() {
   }
 }
 
-function getKeyHover() {
+function getKeyHover(detectLimit) {
   x = mouseX;
   y = mouseY;
   blackKeyHover = blackKeyHoverFinder(x,y);
   whiteKeyHover = whiteKeyHoverFinder(x,y);
+  var key;
   if (blackKeyHover != -1){
-    return(blackKeyNumber[blackKeyHover]);
+    key = blackKeyNumber[blackKeyHover];
   }else if (whiteKeyHover != -1) {
-    return(whiteKeyNumber[whiteKeyHover]);
+    key = whiteKeyNumber[whiteKeyHover];
+  }
+  if(key < detectLimit){
+    return key;
   }else {
-    return (-1);
+    return -1;
   }
 }
 

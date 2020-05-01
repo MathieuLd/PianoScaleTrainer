@@ -17,6 +17,10 @@ var showRelative;
 var rootDiv;
 var relativeDiv;
 var relativeLab;
+var majorModes = ["ionian - major", "dorian", "phrygian", "lydian", "mixolydian", "aeolian - minor", "locrian"];
+var natMinorModes = ["aeolian - minor", "locrian", "ionian - major", "dorian", "phrygian", "lydian", "mixolydian"];
+var harMinorModes = ["","","","","","",""];
+
 
 window.addEventListener("load", function(){
     loadFunction();
@@ -172,16 +176,26 @@ function updateModeSel(){
   option.appendChild(document.createTextNode("-"));
   option.value = -1;
   modeSel.appendChild(option);
+  var currentModeSet;
+  var currentMode = scaleSel.options[scaleSel.selectedIndex].value;
+  if(currentMode == "major"){
+    currentModeSet = majorModes;
+  }else if(currentMode == "natMinor"){
+    currentModeSet = natMinorModes;
+  }else if(currentMode == "harMinor"){
+    currentModeSet = harMinorModes;
+  }else{
+
+  }
   for(var i = 0; i < currentIntervals.length; i++){
     option = document.createElement("option");
-    option.appendChild(document.createTextNode("mode "+i));
+    option.appendChild(document.createTextNode("mode "+(i+1)));
     option.value = i;
     modeSel.appendChild(option);
   }
 }
 
 function newTest(){
-
   currentRoot = Math.floor(Math.random() * 11);
   currentMode = Math.floor(Math.random() * (currentIntervals.length-1));
   currentKeyScale = calculateScale(currentRoot, currentIntervals.slice(), currentMode); //slice used to send a copy of the array not the array itself

@@ -21,7 +21,7 @@ var colorPreset4;
 
 function setup() {
   createCanvas(800, 400);
-  background(180);
+  background(0);
   drawKeyboard();
   colorPreset1 = color(218, 162, 224);
   colorPreset2 = color(169, 88, 196);

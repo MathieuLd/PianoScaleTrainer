@@ -19,7 +19,7 @@ var relativeDiv;
 var relativeLab;
 var majorModes = ["ionian - major", "dorian", "phrygian", "lydian", "mixolydian", "aeolian - minor", "locrian"];
 var natMinorModes = ["aeolian - minor", "locrian", "ionian - major", "dorian", "phrygian", "lydian", "mixolydian"];
-var harMinorModes = ["","","","","","",""];
+var harMinorModes = ["Harmonic minor","locrian 6","ionian #5","dorian #4","phrygian dominant","lydian #2","super locrian bb7"];
 
 
 window.addEventListener("load", function(){
@@ -185,11 +185,15 @@ function updateModeSel(){
   }else if(currentMode == "harMinor"){
     currentModeSet = harMinorModes;
   }else{
-
+    currentModeSet = -1;
   }
   for(var i = 0; i < currentIntervals.length; i++){
     option = document.createElement("option");
-    option.appendChild(document.createTextNode("mode "+(i+1)));
+    if(currentModeSet != -1){
+      option.appendChild(document.createTextNode("mode "+(i+1)+" ("+currentModeSet[i]+")"));
+    }else{
+      option.appendChild(document.createTextNode("mode "+(i+1)));
+    }
     option.value = i;
     modeSel.appendChild(option);
   }

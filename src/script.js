@@ -7,8 +7,8 @@ var currentKeyScale;
 var currentIntervals;
 var currentRoot;
 var currentMode;
-var customScale = [0,2,4,5,7,9,11];
-var currentState; // 0 = setup / 1 = test
+var customScale;
+var currentState; // 0 (setup) / 1 (test)
 var modeSel;
 var rootSel;
 var nextBout;
@@ -21,12 +21,14 @@ var majorModes = ["ionian - major", "dorian", "phrygian", "lydian", "mixolydian"
 var natMinorModes = ["aeolian - minor", "locrian", "ionian - major", "dorian", "phrygian", "lydian", "mixolydian"];
 var harMinorModes = ["Harmonic minor","locrian 6","ionian #5","dorian #4","phrygian dominant","lydian #2","super locrian bb7"];
 
-
+// Executing the loadFunction at load
 window.addEventListener("load", function(){
     loadFunction();
 });
 
+// Setting up everything needed, function executed only once at load
 function loadFunction(){
+  // getting dom elements needed for the script
   setupDom = document.getElementById("setupState");
   testDom = document.getElementById("testState");
   scaleSel = document.getElementById("scaleSel");
@@ -40,9 +42,13 @@ function loadFunction(){
   rootDiv = document.getElementById("rootDiv");
   relativeDiv = document.getElementById("relativeDiv");
   relativeLab = document.getElementById("relativeLab");
+  // Setting up the setup state's dom elemnts
   rootCheck.checked = true;
   relativeCheck.checked = true;
   scaleSel.selectedIndex = 0;
+  // Setting up custom scale to match current scale
+  customScale = [0,2,4,5,7,9,11];
+  // Setting up dom elements's onChange functions
   scaleSel.onchange = function() {
     updateScale();
   }
@@ -55,13 +61,18 @@ function loadFunction(){
   modeSel.onchange = function() {
     checkAnswer();
   }
+  // Entering setup state
   startSetup();
 }
 
+
+// Checking root/relative/mode answer
 function checkAnswer(){
+  // Getting current answer don element
   rootSelAnswer = rootSel.options[rootSel.selectedIndex].value;
   relativeSelAnswer = relativeSel.options[relativeSel.selectedIndex].value;
   modeSelAnswer = modeSel.options[modeSel.selectedIndex].value;
+  // Checking answer and printing correction
   if(isComplete()){
     if(isCorrect()){
       answerLab.innerHTML = "True";
@@ -72,6 +83,8 @@ function checkAnswer(){
   }
 }
 
+
+// Checking if all needed test dom elements were answered
 function isComplete(){
   if(rootCheck.checked && relativeCheck.checked){
     return rootSelAnswer != -1 &&  modeSelAnswer != -1 && relativeSelAnswer != -1;
@@ -84,6 +97,8 @@ function isComplete(){
   }
 }
 
+
+// Checking if all needed answer are correct
 function isCorrect(){
   if(rootCheck.checked && relativeCheck.checked){
     return rootSelAnswer == currentRoot && modeSelAnswer == currentMode && checkRelative(relativeSelAnswer);
@@ -96,11 +111,16 @@ function isCorrect(){
   }
 }
 
+
+// Ckeking if the answer for the root of the relative scale is correct
 function checkRelative(answer){
-  var relative = calculateScale(currentRoot,currentIntervals,currentMode)[currentIntervals.length - currentIntervals.length - currentMode];
+  // Calculating relative
+  var relative = calculateScale(currentRoot,[...currentIntervals],currentMode)[currentIntervals.length - currentIntervals.length - currentMode];
+  // Keeping the relative in the first octave to match the relative selected value
   if(relative > 11){
     relative = relative - 12;
   }
+  // Comparing the answered relative to the caculated relative and returning result
   if(answer == relative){
     return true;
   }else{
@@ -108,47 +128,60 @@ function checkRelative(answer){
   }
 }
 
+
+// Updating/Drawing current scale and current interval according to current selected scale
 function updateScale(){
+  // Getting current scale selector value
   scaleName = scaleSel.options[scaleSel.selectedIndex].value;
+  // Setting up currentScale variable according to current selected scale
   if (scaleName == "major"){
     currentScale = [0,2,4,5,7,9,11];
-  }else if (scaleName == "natMinor") {
+  }else if (scaleName == "natMinor"){
     currentScale = [0,2,3,5,7,8,10];
-  }else if (scaleName == "harMinor") {
+  }else if (scaleName == "harMinor"){
     currentScale = [0,2,3,5,7,8,11];
   }else if (scaleName == "custom"){
-    currentScale = customScale;
+    currentScale = [...customScale];
   }
-  customScale = currentScale;
+  // Updating current custom scale
+  customScale = [...currentScale];
+  // Drawing current selected scale
   drawKeyboard();
   colorScale(currentScale);
-  currentIntervals = calculateIntervals(currentScale.slice());
+  // Updating current interval according to current selected scale
+  currentIntervals = calculateIntervals([...currentScale]);
 }
 
 
-
+// Calculating an interval array from a given scale array
 function calculateIntervals(scale){
   var intervals = [];
+  // Setting up scale array for the interval calculation process
   scale.push(scale[0]+12);
+  // Calculating interval array
   var prec = scale[0];
   for(var i = 1; i < scale.length; i++){
     intervals.push(scale[i]-prec)
     prec = scale[i];
   }
-  return intervals;
+  return [...intervals];
 }
 
 
+// Setting up setup state
 function startSetup(){
   currentState = 0;
+  // Displaying start setup dom element
   setupDom.style.display = "block";
   testDom.style.display = "none";
   updateScale();
 }
 
 
+// Setting up test state, function exectuted from the startTest button every time the user enter the test state
 function startTest(){
   currentState = 1;
+  // Displaying needed dom elements
   setupDom.style.display = "none";
   testDom.style.display = "block";
   if(rootCheck.checked){
@@ -158,6 +191,7 @@ function startTest(){
   }
   if(relativeCheck.checked){
     relativeDiv.style.display = "block";
+    // Displaying the right question for the current relative root according to current slected scale
     if (scaleName != "custom"){
       relativeLab.innerHTML = "Relative " + scaleSel.options[scaleSel.selectedIndex].innerHTML.toLowerCase() + " ?";
     }else{
@@ -170,6 +204,7 @@ function startTest(){
   newTest();
 }
 
+// Updating the options of the mode select accoding to the current selected scale
 function updateModeSel(){
   modeSel.innerHTML = "";
   var option = document.createElement("option");
@@ -178,11 +213,11 @@ function updateModeSel(){
   modeSel.appendChild(option);
   var currentModeSet;
   var currentMode = scaleSel.options[scaleSel.selectedIndex].value;
-  if(currentMode == "major"){
+  if(scaleName == "major"){
     currentModeSet = majorModes;
-  }else if(currentMode == "natMinor"){
+  }else if(scaleName == "natMinor"){
     currentModeSet = natMinorModes;
-  }else if(currentMode == "harMinor"){
+  }else if(scaleName == "harMinor"){
     currentModeSet = harMinorModes;
   }else{
     currentModeSet = -1;
@@ -199,11 +234,12 @@ function updateModeSel(){
   }
 }
 
+// Starting a new test
 function newTest(){
   currentRoot = Math.floor(Math.random() * 11);
   currentMode = Math.floor(Math.random() * (currentIntervals.length-1));
-  currentKeyScale = calculateScale(currentRoot, currentIntervals.slice(), currentMode); //slice used to send a copy of the array not the array itself
-  currentIntervals = calculateIntervals(currentScale.slice());
+  currentKeyScale = calculateScale(currentRoot, [...currentIntervals], currentMode); //slice used to send a copy of the array not the array itself
+  currentIntervals = calculateIntervals([...currentScale]);
   rootSel.value = -1;
   modeSel.value = -1;
   relativeSel.value = -1;

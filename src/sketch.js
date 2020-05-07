@@ -1,3 +1,4 @@
+// initializing all required variables
 var scaleOffsetX = 20;
 var scaleOffsetY = 20;
 var whiteKeyWidth = 50;
@@ -19,6 +20,7 @@ var colorPreset3;
 var colorPreset4;
 
 
+// Setting up p5.js elemnts, function executed once when the p5 canvas is loaded
 function setup() {
   createCanvas(800, 400);
   background(180);
@@ -29,7 +31,10 @@ function setup() {
   colorPreset4 = color(118, 88, 182);
 }
 
+
+// Updating the display of the scale to show the hovered key
 function draw() {
+  // Checking if the user is in the setup state
   if(currentState == 0){
     drawKeyboard();
     colorScale(currentScale);
@@ -38,18 +43,20 @@ function draw() {
 }
 
 
-
-
+// Displaying the current hovered key
 function  drawHiLight() {
   keyHover = getKeyHover(12);
-    console.log("hov = " +keyHover);
   if(keyHover != -1){
     drawKey(keyHover, 50);
   }
 }
 
+
+// Updating the customScale scale when mouse is clicked
 function mouseClicked() {
+  // Checking if the user is in the setup state
   if(currentState == 0){
+    // Getting and checking current hovered key in the first octave
     keyHover = getKeyHover(12);
     if(keyHover != -1){
       scaleSel.value  = "custom";
@@ -64,12 +71,14 @@ function mouseClicked() {
   }
 }
 
+
+// Getting current hovered key number in a range (else -1)
 function getKeyHover(detectLimit) {
   x = mouseX;
   y = mouseY;
   blackKeyHover = blackKeyHoverFinder(x,y);
   whiteKeyHover = whiteKeyHoverFinder(x,y);
-  var key;
+  var key = -1;
   if (blackKeyHover != -1){
     key = blackKeyNumber[blackKeyHover];
   }else if (whiteKeyHover != -1) {
@@ -82,6 +91,8 @@ function getKeyHover(detectLimit) {
   }
 }
 
+
+// Getting current hovered black key number (else -1)
 function blackKeyHoverFinder(x,y) {
   for (var i = 0; i < blackKeyPattern.length; i++){
     var iPos = blackKeyPattern[i]+1;
@@ -92,6 +103,8 @@ function blackKeyHoverFinder(x,y) {
   return -1;
 }
 
+
+// Getting current hovered white key number (else -1)
 function whiteKeyHoverFinder(x,y) {
   if (x > scaleOffsetX && x < scaleOffsetX+whiteKeyWidth*whiteKeyNumber.length && y > scaleOffsetY && y < scaleOffsetY+whiteKeyHeight){
     return Math.floor((x-scaleOffsetX)/whiteKeyWidth);
@@ -100,6 +113,8 @@ function whiteKeyHoverFinder(x,y) {
   }
 }
 
+
+// Drawing the default 2 octave keybord (in black and white)
 function drawKeyboard() {
   fill(255);
   for(var i = 0;i<24;i++){
@@ -107,6 +122,8 @@ function drawKeyboard() {
   }
 }
 
+
+// Drawing the key of a scale array passed in argument according to color presets
 function colorScale(scale){
   for(var i = 0; i < scale.length; i++){
     if (i == 0){
@@ -117,6 +134,8 @@ function colorScale(scale){
   }
 }
 
+
+// Drawing any key in a color passed in argument
 function drawKey(keyNum, color = -1) {
   if (whiteKeyNumber.indexOf(keyNum) != -1) {
     drawWhiteKey(whiteKeyNumber.indexOf(keyNum), color);
@@ -126,6 +145,8 @@ function drawKey(keyNum, color = -1) {
   }
 }
 
+
+// Drawing a white key in a color passed in argument
 function drawWhiteKey(whiteKeyNum, color){
   if(color == -1){color = 255}
   fill(color);
@@ -136,9 +157,10 @@ function drawWhiteKey(whiteKeyNum, color){
   }else if (whiteKeyShape[whiteKeyNum] == 3) {
     drawWhiteKeyShape3(whiteKeyNum);
   }
-  //rect(scaleOffsetX+(whiteKeyNum*whiteKeyWidth),scaleOffsetY,whiteKeyWidth,whiteKeyHeight);
 }
 
+
+// Drawing the first white key shape (C,F)
 function drawWhiteKeyShape1(whiteKeyNum) {
   beginShape();
   vertex(scaleOffsetX + whiteKeyNum * whiteKeyWidth, scaleOffsetY);
@@ -150,6 +172,7 @@ function drawWhiteKeyShape1(whiteKeyNum) {
   endShape(CLOSE);
 }
 
+// Drawing the second white key shape (D,G,A)
 function drawWhiteKeyShape2(whiteKeyNum) {
   beginShape();
   vertex(scaleOffsetX + whiteKeyNum * whiteKeyWidth + blackKeyWidth/2, scaleOffsetY);
@@ -163,6 +186,7 @@ function drawWhiteKeyShape2(whiteKeyNum) {
   endShape(CLOSE);
 }
 
+// Drawing the third white key shape (E,B)
 function drawWhiteKeyShape3(whiteKeyNum) {
   beginShape();
   vertex(scaleOffsetX + whiteKeyNum * whiteKeyWidth + blackKeyWidth/2, scaleOffsetY);
@@ -174,6 +198,7 @@ function drawWhiteKeyShape3(whiteKeyNum) {
   endShape(CLOSE);
 }
 
+// Drawing a black key in a color passed in argument
 function drawBlackKey(blackKeyNum, color){
   if(color == -1){color = 0}
   if(color == colorPreset1){color = colorPreset2}

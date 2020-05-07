@@ -1,3 +1,4 @@
+// initializing all required variables
 var setupDom;
 var testDom;
 var scaleName;
@@ -21,10 +22,12 @@ var majorModes = ["ionian - major", "dorian", "phrygian", "lydian", "mixolydian"
 var natMinorModes = ["aeolian - minor", "locrian", "ionian - major", "dorian", "phrygian", "lydian", "mixolydian"];
 var harMinorModes = ["Harmonic minor","locrian 6","ionian #5","dorian #4","phrygian dominant","lydian #2","super locrian bb7"];
 
+
 // Executing the loadFunction at load
 window.addEventListener("load", function(){
     loadFunction();
 });
+
 
 // Setting up everything needed, function executed only once at load
 function loadFunction(){
@@ -101,31 +104,26 @@ function isComplete(){
 // Checking if all needed answer are correct
 function isCorrect(){
   if(rootCheck.checked && relativeCheck.checked){
-    return rootSelAnswer == currentRoot && modeSelAnswer == currentMode && checkRelative(relativeSelAnswer);
+    return rootSelAnswer == currentRoot && modeSelAnswer == currentMode && relativeSelAnswer == calculateRelative();
   }else if (rootCheck.checked) {
     return rootSelAnswer == currentRoot && modeSelAnswer == currentMode;
   }else if (relativeCheck.checked) {
-    return modeSelAnswer == currentMode && checkRelative(relativeSelAnswer);
+    return modeSelAnswer == currentMode && relativeSelAnswer == calculateRelative();
   }else {
     return modeSelAnswer == currentMode;
   }
 }
 
 
-// Ckeking if the answer for the root of the relative scale is correct
-function checkRelative(answer){
+// Calculating the correct answer for the root of the relative scale
+function calculateRelative(){
   // Calculating relative
-  var relative = calculateScale(currentRoot,[...currentIntervals],currentMode)[currentIntervals.length - currentIntervals.length - currentMode];
+  var relative = currentKeyScale[currentIntervals.length-currentMode];
   // Keeping the relative in the first octave to match the relative selected value
   if(relative > 11){
     relative = relative - 12;
   }
-  // Comparing the answered relative to the caculated relative and returning result
-  if(answer == relative){
-    return true;
-  }else{
-    return false;
-  }
+  return relative;
 }
 
 
@@ -204,6 +202,7 @@ function startTest(){
   newTest();
 }
 
+
 // Updating the options of the mode select accoding to the current selected scale
 function updateModeSel(){
   modeSel.innerHTML = "";
@@ -234,26 +233,32 @@ function updateModeSel(){
   }
 }
 
+
 // Starting a new test
 function newTest(){
+  // Selecting a new random root and mode
   currentRoot = Math.floor(Math.random() * 11);
   currentMode = Math.floor(Math.random() * (currentIntervals.length-1));
-  currentKeyScale = calculateScale(currentRoot, [...currentIntervals], currentMode); //slice used to send a copy of the array not the array itself
-  currentIntervals = calculateIntervals([...currentScale]);
+  // Calculating current displayed scale (currentKeyScale) and intervals from the root and mode
+  currentKeyScale = calculateScale(currentRoot, [...currentIntervals], currentMode); //[...array] used to send a copy of the array not the array itself
+  // Setting up test state dom elemnts for new test
   rootSel.value = -1;
   modeSel.value = -1;
   relativeSel.value = -1;
   answerLab.innerHTML = "";
   nextBout.disabled = true;
+  // Displaying the test scale
   drawKeyboard();
   colorScale(currentKeyScale);
 }
 
+
+// Calculating a scale array from a root / mode / intervals array
 function calculateScale(root, intervals, mode){
   var scale = [root];
   intervals = concat(intervals.slice(mode),intervals.slice(0,mode));
   for(var i = 0; i < intervals.length-1; i++){
     scale.push(scale[i] + intervals[i]);
   }
-  return scale;
+  return [...scale];
 }

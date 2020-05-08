@@ -78,10 +78,10 @@ function checkAnswer(){
   // Checking answer and printing correction
   if(isComplete()){
     if(isCorrect()){
-      answerLab.innerHTML = "True";
+      answerLab.innerHTML = "GG";
       nextBout.disabled = false;
     }else{
-      answerLab.innerHTML = "False";
+      answerLab.innerHTML = "Nope !";
     }
   }
 }
@@ -170,7 +170,7 @@ function calculateIntervals(scale){
 function startSetup(){
   currentState = 0;
   // Displaying start setup dom element
-  setupDom.style.display = "block";
+  setupDom.style.display = "flex";
   testDom.style.display = "none";
   updateScale();
 }
@@ -181,7 +181,7 @@ function startTest(){
   currentState = 1;
   // Displaying needed dom elements
   setupDom.style.display = "none";
-  testDom.style.display = "block";
+  testDom.style.display = "flex";
   if(rootCheck.checked){
     rootDiv.style.display = "block";
   }else{

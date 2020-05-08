@@ -1,0 +1,77 @@
+body{
+  font-family: Calibri;
+  color: #262626;
+}
+
+
+h1{
+ margin: 0px;
+ color: #303030;
+}
+
+button{
+  font-size: 16px;
+  width: 100px;
+}
+
+hr {
+  margin-top: 0px;
+  margin-bottom: 7px;
+  margin-left: 0px;
+  display: block;
+  width: 98%;
+  border: 1px dashed #696969;
+}
+
+
+#title{
+  /*text-align: center;*/
+  margin-top: 8px;
+}
+
+
+
+.answerUI{
+  font-weight: bold;
+  font-size: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.domUI{
+  background-color: #b4b4b4;
+  width: 695px;
+  height: 140px;
+  padding-left: 25px;
+  padding-right: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.domInteractive{
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.choiceUI{
+  width: 300px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+}
+
+.navUI{
+  width: 300px;
+  height: 70px;
+  float: right;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: flex-end;
+}

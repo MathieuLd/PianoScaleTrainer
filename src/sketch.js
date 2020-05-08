@@ -1,6 +1,6 @@
 // initializing all required variables
-var scaleOffsetX = 20;
-var scaleOffsetY = 20;
+var scaleOffsetX = 21;
+var scaleOffsetY = 10;
 var whiteKeyWidth = 50;
 var whiteKeyHeight = 300;
 var blackKeyWidth = 25;
@@ -22,7 +22,7 @@ var colorPreset4;
 
 // Setting up p5.js elemnts, function executed once when the p5 canvas is loaded
 function setup() {
-  createCanvas(800, 400);
+  createCanvas(745, 330);
   background(180);
   drawKeyboard();
   colorPreset1 = color(218, 162, 224);

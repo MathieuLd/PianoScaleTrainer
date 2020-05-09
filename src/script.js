@@ -138,6 +138,10 @@ function updateScale(){
     currentScale = [0,2,3,5,7,8,10];
   }else if (scaleName == "harMinor"){
     currentScale = [0,2,3,5,7,8,11];
+  }else if (scaleName == "pentaMajor"){
+    currentScale = [0,2,4,7,9];
+  }else if (scaleName == "blues"){
+    currentScale = [0,3,5,6,7,10];
   }else if (scaleName == "custom"){
     currentScale = [...customScale];
   }

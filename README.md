@@ -15,4 +15,4 @@ In the setup state you can specify the parameters of the test (scale, ask for ro
 
 And in the test state, you need to select the right answers (root, mode, relative mode 0) of the displayed scale.
 
-![Image of the test state](https://raw.githubusercontent.com/MathieuLd/PianoScaleTrainer/img/PSTTest.png)
+![Image of the test state](https://raw.githubusercontent.com/MathieuLd/PianoScaleTrainer/master/img/PSTTest.png)

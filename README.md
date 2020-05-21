@@ -11,8 +11,8 @@ The application has in two states : setup state and test state
 
 In the setup state you can specify the parameters of the test (scale, ask for root, ask for relative mode 0).
 
-![Image of the setup state](https://github.com/MathieuLd/PianoScaleTrainer/img/PSTSetup.png)
+![Image of the setup state](https://raw.githubusercontent.com/MathieuLd/PianoScaleTrainer/master/img/PSTSetup.png)
 
 And in the test state, you need to select the right answers (root, mode, relative mode 0) of the displayed scale.
 
-![Image of the test state](https://github.com/MathieuLd/PianoScaleTrainer/img/PSTTest.png)
+![Image of the test state](https://raw.githubusercontent.com/MathieuLd/PianoScaleTrainer/img/PSTTest.png)

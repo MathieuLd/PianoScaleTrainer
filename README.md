@@ -7,12 +7,12 @@ The application can be found online [here](https://pianoscaletrainer-secondary.z
 
 ## Usage
 
-The application has in two states : setup state and test state
+The application has two states : setup state and test state
 
-In the setup state you can specify the parameters of the test (scale, ask for root, ask for relative mode 0).
+In the setup state you can specify the parameters of the test (scale, ask for root, ask for relative mode 0). You can also specifiy a custom scale by clicking on the keys
 
 ![Image of the setup state](https://raw.githubusercontent.com/MathieuLd/PianoScaleTrainer/master/img/PSTSetup.png)
 
-And in the test state, you need to select the right answers (root, mode, relative mode 0) of the displayed scale.
+In the test state, you need to select the right answers (root, mode, relative mode 0) of the displayed scale.
 
 ![Image of the test state](https://raw.githubusercontent.com/MathieuLd/PianoScaleTrainer/master/img/PSTTest.png)

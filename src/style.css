@@ -24,11 +24,27 @@ hr {
 }
 
 
-#title{
+#header{
   /*text-align: center;*/
   margin-top: 8px;
+  margin-right: 4px;
+  display: flex;
+  flex-direction: line;
+  justify-content: space-between;
 }
 
+#header>div{
+  font-size: 14px;
+  padding-bottom: 3px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+a {
+  color: black;
+}
 
 
 .answerUI{

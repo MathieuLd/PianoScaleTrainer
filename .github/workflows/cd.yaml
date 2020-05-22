@@ -11,4 +11,6 @@ jobs:
       with:
         enabled-static-website: 'true'
         folder: 'src'
+        index-document: 'index.html'
+        error-document: 'index.html'
         connection-string: ${{ secrets.CONNECTION_STRING }}
